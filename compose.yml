@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    volumes:
+      - ./src:/src
+    tty: true
+    ports:
+      - 3000:3000
+    environment:
+      - TZ=Asia/Tokyo
