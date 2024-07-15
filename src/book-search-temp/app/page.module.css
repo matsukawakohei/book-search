@@ -1,0 +1,77 @@
+.info {
+  background: var(--white);
+  border-radius: 16px;
+  margin: 16px 16px 0;
+  padding: 8px 16px;
+}
+
+.searchButton {
+  background: var(--white);
+  border-radius: 16px;
+  margin: 16px 16px 0;
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  background: linear-gradient(90deg, rgba(255,112,30,1) 0%, rgba(255,191,48,1) 50%, rgba(255,77,48,1) 100%);
+  background-size: 200% 100%;
+  border: none;
+  cursor: pointer;
+  transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
+  color: var(--white);
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .searchButton:hover {
+    background-position: 100% 0;
+  }
+}
+
+.rentalList {
+  background: var(--white);
+  border-radius: 16px;
+  margin: 16px 16px 0;
+  padding: 8px 16px;
+}
+
+.rentalListStyle {
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+}
+
+.rentalListRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.linkButtonArea {
+  display: flex;
+  justify-content: right;
+}
+
+.linkButton {
+  background: var(--white);
+  border-radius: 8px;
+  display: flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  background: linear-gradient(90deg, rgba(255,112,30,1) 0%, rgba(255,191,48,1) 50%, rgba(255,77,48,1) 100%);
+  background-size: 200% 100%;
+  border: none;
+  cursor: pointer;
+  transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
+  color: var(--white);
+  width: 30%;
+}
+
+@media (hover: hover) {
+  .linkButton:hover {
+    background-position: 100% 0;
+  }
+}
