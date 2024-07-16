@@ -1,10 +1,15 @@
 import Quagga from 'quagga';
 
-export const quaggaStart = (targetId: string, resultId: string) => { 
+export const quaggaStart = () => { 
   Quagga.init({
     inputStream: {
         name: "LiveStream",
         type: "LiveStream",
+    },
+    // MediaStreamConstraintsを参照
+    audio: false,
+    video: {
+      facingMode: "environment",
     },
     decoder: {
         readers: [ "ean_reader" ]
@@ -36,5 +41,10 @@ export const quaggaStart = (targetId: string, resultId: string) => {
 
   Quagga.onDetected(function(result){
     console.log(result.codeResult.code);
+    // 取得したコードがISBNなら書籍詳細ページに遷移
   });
+}
+
+export const quaggaStop = () => {
+  Quagga.stop();
 }
