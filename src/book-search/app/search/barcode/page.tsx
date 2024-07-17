@@ -7,12 +7,26 @@ import { useEffect } from "react";
 export default function Barcode() {
   const router = useRouter();
 
-  useEffect(() => quaggaStart(), []);
+  useEffect(() => {
+    const canMedia = quaggaStart();
+    // TODO: カメラ取得失敗時はエラーメッセージを出す
+  }, []);
 
   const onClickBack = () => {
+    const ele = document.getElementById("interactive");
+    if (!ele) {
+      return;
+    }
+    const videoEleArray = ele.getElementsByTagName('video');
+    if (!videoEleArray.length) {
+      return;
+    }
+    videoEleArray[0].srcObject = null;
     quaggaStop();
-    // router.push('/search');
+    router.push('/search');
   }
+  
+  // TODO: 余分な要素を非表示にする
   return (
     <div>
       <div id="interactive" className="viewport"></div>

@@ -1,6 +1,9 @@
 import Quagga from 'quagga';
 
-export const quaggaStart = () => { 
+export const quaggaStart = (): boolean => {
+  if ('mediaDevices' in navigator === false || 'getUserMedia' in navigator.mediaDevices === false) {
+    return false;
+  }
   Quagga.init({
     inputStream: {
         name: "LiveStream",
@@ -43,6 +46,8 @@ export const quaggaStart = () => {
     console.log(result.codeResult.code);
     // 取得したコードがISBNなら書籍詳細ページに遷移
   });
+
+  return true;
 }
 
 export const quaggaStop = () => {
