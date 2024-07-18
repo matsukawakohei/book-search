@@ -20,7 +20,6 @@ export const quaggaStart = (): boolean => {
   }, 
   function(err) {
       if (err) {
-          alert(err);
           console.log(err);
           return;
       }
