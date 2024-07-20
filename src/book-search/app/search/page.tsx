@@ -28,7 +28,7 @@ export default function Search() {
     router.push('/search/barcode');
   }
   return (
-    <>
+    <main>
       <div>
         <input placeholder="書籍名・著者" value={keyword} onChange={onChangeKeyword} />
         <button type="button" onClick={onClickExecSearch}>検索</button>
@@ -63,6 +63,6 @@ export default function Search() {
             )
         }
       </div>
-    </>
+    </main>
   )
 }

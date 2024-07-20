@@ -1,9 +1,14 @@
 import Quagga from 'quagga';
 
-export const quaggaStart = (): boolean => {
+let isbn: string = '';
+let checkCount: number = 0;
+
+export const quaggaStart = (execSearch: (isbn: string) => void ): boolean => {
   if ('mediaDevices' in navigator === false || 'getUserMedia' in navigator.mediaDevices === false) {
     return false;
   }
+  isbn = '';
+  checkCount = 0;
   Quagga.init({
     inputStream: {
         name: "LiveStream",
@@ -18,7 +23,7 @@ export const quaggaStart = (): boolean => {
         readers: [ "ean_reader" ]
     } 
   }, 
-  function(err) {
+  function(err: Error) {
       if (err) {
           console.log(err);
           return;
@@ -35,14 +40,33 @@ export const quaggaStart = (): boolean => {
 
     if (result) {
         if (result.box) {
-            console.log(JSON.stringify(result.box));
             Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, ctx, {color: 'blue', lineWidth: 2});
         }
     }
   });
 
   Quagga.onDetected(function(result){
-    console.log(result.codeResult.code);
+    const tmpIsbn = String(result.codeResult.code);
+    if (!tmpIsbn.startsWith('978') && !tmpIsbn.startsWith('979')) {
+      return;
+    }
+    if (tmpIsbn.length !== 10 && tmpIsbn.length !== 13) {
+      return;
+    }
+    if (!isbn.length) {
+      isbn = tmpIsbn;
+      checkCount = 1;
+      return;
+    }
+    if (isbn !== String(tmpIsbn)) {
+      isbn = tmpIsbn;
+      checkCount = 1;
+    }
+
+    checkCount++;
+    if (checkCount >= 3) {
+      execSearch(isbn);
+    }
     // 取得したコードがISBNなら書籍詳細ページに遷移
   });
 

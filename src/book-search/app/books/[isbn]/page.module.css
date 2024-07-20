@@ -1,0 +1,69 @@
+.searchArea {
+  display: flex;
+}
+
+.bookArea {
+  padding: 16px;
+  background: var(--white);
+}
+
+.bookImageArea {
+  position: relative;
+  height: 300px;
+}
+
+.bookInfoArea {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid #dcdcdc;
+}
+
+.bookInfoRow {
+  display: flex;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.bookInfoHeader {
+  padding: 16px;
+  background-color: #dcdcdc;
+  text-align: center;
+  min-width: 30%;
+}
+
+.bookInfoBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.bookDescriptionArea {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--white);
+  border: 1px solid #dcdcdc;
+}
+
+.searchButton {
+  background: var(--white);
+  border-radius: 16px;
+  margin-top: 16px;
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  background: linear-gradient(90deg, rgba(255,112,30,1) 0%, rgba(255,191,48,1) 50%, rgba(255,77,48,1) 100%);
+  background-size: 200% 100%;
+  border: none;
+  cursor: pointer;
+  transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
+  color: var(--white);
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .searchButton:hover {
+    background-position: 100% 0;
+  }
+}

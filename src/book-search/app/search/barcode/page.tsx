@@ -3,7 +3,7 @@
 import styles from "./page.module.css";
 import { quaggaStart, quaggaStop } from "@/app/lib/quaggaApi";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Barcode() {
   const router = useRouter();
@@ -40,6 +40,12 @@ export default function Barcode() {
     quaggaStop();
   }
 
+  /** バーコード読み取り完了時のページ遷移 */
+  const execSearch = useCallback((isbn: string) => {
+    quaggaStop();
+    router.push(`/books/${isbn}`);
+  }, [router]);
+
   /** 初回レンダリングで呼ばれる */
   const lock = useRef(false);
   useEffect(() => {
@@ -47,7 +53,7 @@ export default function Barcode() {
       return;
     }
     
-    const canMedia = quaggaStart();
+    const canMedia = quaggaStart(execSearch);
     if (canMedia) {
       /** ライブラリが予備で確保する表示領域を非表示にする */
       (async () => {
@@ -61,7 +67,7 @@ export default function Barcode() {
     return () => {
       stopMedia();
     };
-  }, []);
+  }, [execSearch]);
 
   /** 戻るボタン */
   const onClickBack = () => {
