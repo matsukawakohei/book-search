@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from "react"
 import { useSearchByKeyword } from "../lib/googleBooksApi";
 import Image from "next/image";
 import styles from "./page.module.css";
+import Link from 'next/link'
 import { useRouter } from "next/navigation";
 
 export default function Search() {
@@ -38,7 +39,8 @@ export default function Search() {
             ? (<p>検索中</p>)
             : (
               books.map((book) => (
-                <div className={styles.bookArea} key={book.id}>
+                <Link href={`/books/${book.isbn}`} key={book.id}>
+                <div className={styles.bookArea}>
                   <div className={styles.bookImageArea}>
                     <Image
                       src={book.imageLink}
@@ -57,6 +59,7 @@ export default function Search() {
                     <p>詳細</p>
                   </div>
                 </div>
+                </Link>
               ))
             )
         }
