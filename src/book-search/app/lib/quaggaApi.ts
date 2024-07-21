@@ -1,3 +1,4 @@
+//@ts-ignore
 import Quagga from 'quagga';
 
 let isbn: string = '';
@@ -32,7 +33,7 @@ export const quaggaStart = (execSearch: (isbn: string) => void ): boolean => {
       Quagga.start();
   });
 
-  Quagga.onProcessed(function(result){
+  Quagga.onProcessed(function(result: any){
     var ctx = Quagga.canvas.ctx.overlay;
     var canvas = Quagga.canvas.dom.overlay;
 
@@ -45,7 +46,7 @@ export const quaggaStart = (execSearch: (isbn: string) => void ): boolean => {
     }
   });
 
-  Quagga.onDetected(function(result){
+  Quagga.onDetected(function(result: any){
     const tmpIsbn = String(result.codeResult.code);
     if (!tmpIsbn.startsWith('978') && !tmpIsbn.startsWith('979')) {
       return;
