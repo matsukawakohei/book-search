@@ -31,19 +31,22 @@ export const useSearchByKeyword = () => {
     axios
       .get<GoogleBooksSearchResponse>(url.href)
       .then((res) => {
-        console.log(res.data.items);
         if (res.data.items.length) {
-          const books = res.data.items.map((b) => {
+          const books = res.data.items.filter((b) => {
+            const isbn10 = b.volumeInfo.industryIdentifiers?.find((i) => i.type === ISBN10);
+            if (isbn10) {
+              return true
+            }
+            const isbn13 = b.volumeInfo.industryIdentifiers?.find((i) => i.type === ISBN13);
+            return isbn13 !== undefined;
+          }).map((b) => {
             const isbn10 = b.volumeInfo.industryIdentifiers?.find((i) => i.type === ISBN10);
             const isbn13 = b.volumeInfo.industryIdentifiers?.find((i) => i.type === ISBN13);
-            const other = b.volumeInfo.industryIdentifiers?.find((i) => i.type === OTHER);
             const isbn = isbn10
               ? isbn10.identifier
               : isbn13
                 ? isbn13.identifier
-                : other
-                  ? other.identifier
-                  : '';
+                : ''
             return {
               id: b.id,
               title: b.volumeInfo.title,
