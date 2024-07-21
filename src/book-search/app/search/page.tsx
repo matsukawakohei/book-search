@@ -6,8 +6,10 @@ import { GoogleBook } from "../lib/types/googleBooks";
 import Image from "next/image";
 import styles from "./page.module.css";
 import { quaggaStart } from "../lib/quaggaApi";
+import { useRouter } from "next/navigation";
 
 export default function Search() {
+  const router = useRouter();
   const [keyword, setKeyword] = useState('');
   const [page, setPage] = useState(0);
   const { execSearch, loading, books } = useSearchByKeyword();
@@ -20,18 +22,17 @@ export default function Search() {
     if (keyword) {
       execSearch(keyword, page);
     }
-    console.log(books);
   }
 
-  const onClickCodeSearch = () => {
-    quaggaStart('a', 'aa');
+  const onClickBarcode = () => {
+    router.push('/search/barcode');
   }
   return (
-    <>
+    <main>
       <div>
         <input placeholder="書籍名・著者" value={keyword} onChange={onChangeKeyword} />
         <button type="button" onClick={onClickExecSearch}>検索</button>
-        <button type="button" onClick={onClickCodeSearch}>バーコード検索</button>
+        <button type="button" onClick={onClickBarcode}>バーコード検索</button>
       </div>
       <div>
         {
@@ -62,7 +63,6 @@ export default function Search() {
             )
         }
       </div>
-      <div id="interactive" className="viewport"></div>
-    </>
+    </main>
   )
 }

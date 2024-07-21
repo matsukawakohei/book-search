@@ -64,3 +64,36 @@ export const useSearchByKeyword = () => {
   
   return { execSearch, loading, books };
 }
+
+export const useSearchByIsbn = () => {
+  const [book, setBook] = useState({} as GoogleBook);
+
+  const [loading, setLoading] = useState(true);
+
+  const execSearch = useCallback((isbn: string) => {
+    setLoading(true);
+    const url = new URL(baseUrl);
+    url.searchParams.set('q', `isbn:${isbn}`);
+
+    axios
+      .get<GoogleBooksSearchResponse>(url.href)
+      .then((res) => {
+        if (res.data.items.length) {
+          const tmpBook = res.data.items[0];
+          const book = {} as GoogleBook;
+          book.id = tmpBook.id;
+          book.title = tmpBook.volumeInfo.title;
+          book.author = tmpBook.volumeInfo.authors?.join(', ');
+          book.publisher = tmpBook.volumeInfo.publisher;
+          book.publishedDate = tmpBook.volumeInfo.publishedDate;
+          book.description = tmpBook.volumeInfo.description;
+          book.imageLink = tmpBook.volumeInfo.imageLinks.thumbnail;
+          setBook(book);
+        }
+      })
+      .catch((e) => console.log('Failed GoogleBooksAPI exec search', e))
+      .finally(() => setLoading(false));
+  }, []);
+
+  return { execSearch, loading, book };
+}

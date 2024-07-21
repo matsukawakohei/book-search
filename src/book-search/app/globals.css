@@ -31,6 +31,16 @@ header a {
   color: inherit;
 }
 
+video {
+  max-width: var(--sp-max-width);
+}
+
+@media screen and (min-width: 990px) {
+  video {
+    max-width: var(--pc-max-width);
+  }
+}
+
 /** reset css **/
 /* Box sizing rules */
 *,
