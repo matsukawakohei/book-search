@@ -1,11 +1,9 @@
 "use client";
 
-import { ChangeEvent, useCallback, useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { useSearchByKeyword } from "../lib/googleBooksApi";
-import { GoogleBook } from "../lib/types/googleBooks";
 import Image from "next/image";
 import styles from "./page.module.css";
-import { quaggaStart } from "../lib/quaggaApi";
 import { useRouter } from "next/navigation";
 
 export default function Search() {
