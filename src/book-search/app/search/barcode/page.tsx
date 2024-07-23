@@ -13,7 +13,6 @@ export default function Barcode() {
   const displayNoneCanvas = () => {
     const ele = document.getElementById("interactive");
     const canvasEleArray = ele?.getElementsByTagName('canvas') || [];
-    console.log(canvasEleArray);
     if (!canvasEleArray.length || !canvasEleArray[0]) {
       return;
     }
