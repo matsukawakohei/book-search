@@ -2,23 +2,17 @@
 
 import styles from "./page.module.css";
 import { quaggaStart, quaggaStop } from "@/app/lib/quaggaApi";
+import { sleep } from "@/app/lib/util";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export default function Barcode() {
   const router = useRouter();
-
-  // TODO: この処理はlibへ移した方がよさそう
-  const sleep = (milliSecond: number) => new Promise(resolve => setTimeout(resolve, milliSecond));
-
-  /** 1秒あればメディアの表示が完了すると思いたい */
-  const sleepMilliSecond = 1000;
 
   /** ライブラリが予備で確保する表示領域を非表示にする */
   const displayNoneCanvas = () => {
     const ele = document.getElementById("interactive");
     const canvasEleArray = ele?.getElementsByTagName('canvas') || [];
-    console.log(canvasEleArray);
     if (!canvasEleArray.length || !canvasEleArray[0]) {
       return;
     }
@@ -57,7 +51,8 @@ export default function Barcode() {
     if (canMedia) {
       /** ライブラリが予備で確保する表示領域を非表示にする */
       (async () => {
-        await sleep(sleepMilliSecond);
+        /** 1秒あればメディアの表示が完了すると思いたい */
+        await sleep();
         displayNoneCanvas();
       })();
     }
